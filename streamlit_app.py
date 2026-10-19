@@ -1030,8 +1030,8 @@ def main():
         if st.session_state.answers.get("q12") and st.session_state.answers["q12"] not in highest:
             st.info("현재 가장 높은 가중치 항목은 " + ", ".join(highest) + "입니다. Q12 답변이나 가중치를 확인하세요.")
         text_answer("q13")
-        st.button("종합점수 계산하기 →", type="primary", disabled=not valid_weights(weights),
-                  on_click=go_to_mission, args=(4,))
+        st.caption("종합점수는 가중치 합계가 100%일 때 위에서 자동 계산됩니다. "
+                   "아래 이동 버튼으로 다음 미션에서 여러 평가 기준의 결과를 비교해 보세요.")
         show_scoring_method()
 
     elif mission == 4:
@@ -1126,7 +1126,8 @@ def main():
     st.divider()
     previous, following = st.columns(2)
     previous.button("← 이전 미션", disabled=mission == 0, on_click=go_to_mission, args=(mission - 1,))
-    following.button("다음 미션 →", disabled=mission == 6, on_click=go_to_mission,
+    next_label = "시뮬레이션에서 결과 비교하기 →" if mission == 3 else "다음 미션 →"
+    following.button(next_label, disabled=mission == 6, on_click=go_to_mission,
                      args=(mission + 1,), width="stretch", type="primary")
     st.caption("DATA NOTE · 모든 후보지 자료는 수업용 가상 데이터입니다. 실제 지역의 사업성이나 법적 적합성을 나타내지 않습니다.")
     with st.expander("교사용 안내 · 수업 운영 및 평가"):
